@@ -18,13 +18,39 @@ class Symbol:
 
     def __str__(self):
         return(str(self.pre)+self.var+str(self.post))
+class Frac:
+    def __init__(self,num,den):
+        self.num=num
+        self.den=den
+    def __truediv__(self,other):
+        return Frac(self.num*other.den,self.den*other.num)
+    def __mul__(self,other):
+        return Frac(self.num*other.num,self.den*other.den)
+    def __add__(self,other):
+        if self.den==other.den:
+            num=self.num+other.num
+            den=self.den
+        else:
+            num=(self.num*other.den)+(other.num*self.den)
+            den=self.den*other.den
+        return Frac(num,den)
+    def __sub__(self,other):
+        if self.den==other.den:
+            num=self.num-other.num
+            den=self.den
+        else:
+            num=(self.num*other.den)-(other.num*self.den)
+            den=self.den*other.den
+        return Frac(num,den)
+    def __str__(self):
+        return(str(self.num)+'|'+str(self.den))
 def remover(arr):
     while(True):
         if "brownMunde" in arr:
             arr.remove("brownMunde")
         else:
             break
-arr=[Symbol('x',3,2),'*',Symbol('x',3,2),'-',Symbol('x',1,3)]
+arr=[Frac(Symbol('x',3,2),Symbol('x',2,1)),'*',Frac(Symbol('x',3,2),Symbol('x',3,5))]
 x=0
 while(x<len(arr)):
     if arr[x]=='/':
