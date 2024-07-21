@@ -60,7 +60,16 @@ class Frac:
             den=self.den*other.den
         return Frac(num,den)
     def __str__(self):
-        return(str(self.num)+'|'+str(self.den))
+        if isinstance(self.num,list):
+            st='['
+            k=0
+            while k<len(self.num):
+                st+=str(self.num[k])
+                k+=1
+            st+=']|'+str(self.den)
+            return st
+        else:
+            return(str(self.num)+'|'+str(self.den))
 def remover(arr):
     while(True):
         if "brownMunde" in arr:
@@ -114,18 +123,12 @@ def solver(arr):
                 arr[x]="brownMunde"
                 remover(arr)
         x+=1
-def printer(a):
+def printer(arr):
     j=0
-    while(i<len(a)):
-        print(a[j],end='')
+    while(j<len(arr)):
+        print(arr[j],end='')
         j+=1
 
 arr=[Frac(Symbol('x',3,2),Symbol('x',2,1)),'-',Symbol('x',3,2)]
 solver(arr)
-i=0
-while(i<len(arr)):
-    if isinstance(arr[i],list):
-        printer(arr[i])
-    else:
-        print(arr[i],end='')
-    i+=1
+printer(arr)
