@@ -181,7 +181,6 @@ def list_div(arr1, arr2):
         res.append(sign)
         res.append(d)
         arr1 = list_sub(arr1, list_mult(arr2, d))
-        printer(res)
     return res
 
 def printer(arr):
