@@ -73,6 +73,27 @@ class Frac: #Fraction class
             return st
         else:
             return str(self.num) + '|' + str(self.den)
+        
+def sort_expression(arr):
+    terms = []  # Store (sign, symbol) pairs
+    sign = '+'  # Default sign
+    
+    for elem in arr:
+        if elem in ['+', '-']:
+            sign = elem  # Update sign for next term
+        else:
+            terms.append((sign, elem))  # Store term with its sign
+
+    # Sort based on exponent (`post` value) in descending order
+    terms.sort(key=lambda x: x[1].post, reverse=True)
+
+    # Rebuild sorted expression
+    sorted_arr = []
+    for sign, term in terms:
+        sorted_arr.append(sign)
+        sorted_arr.append(term)
+
+    return sorted_arr
 
 def remover(arr): #removes labelled objects
     while "brownMunde" in arr:
@@ -106,6 +127,7 @@ def solver(arr):
 
     x = 0
     while x < len(arr): #implements addition
+        arr = sort_expression(arr)
         if arr[x] == '+':
             if isinstance(arr[x + 1], Symbol) and isinstance(arr[x - 1], Symbol):
                 if arr[x + 1].post == arr[x - 1].post:
